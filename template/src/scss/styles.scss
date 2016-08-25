@@ -1,0 +1,38 @@
+//------------------------------
+// Imports
+//------------------------------
+@import 'reset';
+@import 'default';
+@import 'animations';
+
+//------------------------------
+// Home
+//------------------------------
+
+.stream-list{
+    // Block styles
+
+    // Modifiers
+
+    // Elements
+    &__item{
+        margin: 20px;
+    }
+}
+
+.search-error{
+    max-width: 100%;
+
+    margin: 100px auto;
+
+    animation: fadeInFromNone 500ms ease-in-out;
+
+    // Elements
+    &__header{
+        padding-bottom: 10px;
+
+        color: #000;
+        font-size: calc(1.3em + 1vw);
+        font-weight: 100;
+    }
+}
