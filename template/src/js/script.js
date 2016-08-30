@@ -23,6 +23,23 @@ function getFreeCodeCampStreamStatus(data) {
     return $.isEmptyObject(data.stream);
 }
 
+function getFreeCodeCampChannel() {
+    $.ajax({
+        type: "GET",
+        url: "https://api.twitch.tv/kraken/channels/freecodecamp" + "?callback=?",
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+}
+
+
 function getFeaturedStreams() {
     $.ajax({
         type: "GET",
@@ -58,8 +75,8 @@ function getDataFeaturedStreams(data) {
 }
 
 // Colateral effects: print strem in .streams
-function displayStream(user, game, viewers) {
-    $('.stream-list').append('<div class="stream-list__item"><p>User: ' + user + '</p><p>Game: ' + game + '</p><p>Viewers: ' + viewers + '</p></div>');
+function displayStream(streamTitle, user, game, imageUrl) {
+    $('.stream-list').append('<div class="stream"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__stream-title">' + streamTitle + '</p><p class="profile-info__stream-game">Game: ' + game + '</p><p class="profile-info__user">User: ' + user + '</p></div></div>');
 }
 
 //------------------------------
@@ -68,6 +85,7 @@ function displayStream(user, game, viewers) {
 $(document).ready(function() {
     // getFeaturedStreams();
     getFreeCodeCampStreams();
+    getFreeCodeCampChannel();
     $('.nav-tab__link').click(function() {
         $('.stream-list--online').toggle();
         $('.stream-list--offline').toggle();
