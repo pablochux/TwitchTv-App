@@ -1,4 +1,3 @@
-# 
- app for FreeCodeCamp
+# Twitch.tv app for FreeCodeCamp
 
-Site is up at: https://pablochux.github.io//
+Site is up at: https://pablochux.github.io/twitch.tv-app/
