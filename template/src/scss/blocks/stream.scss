@@ -1,0 +1,49 @@
+.stream{
+    padding: 10px;
+
+    &-list--offline{
+        display: none;
+    }
+}
+
+.profile-image{
+
+    display: inline-block;
+
+    & img{
+        width: 52px;
+        height: 52px;
+
+        border-radius: 50%;
+    }
+}
+
+.profile-info{
+    display: inline-block;
+
+    margin-left: 14px;
+
+    &__stream-title{
+        padding-bottom: 3px;
+
+        color: #454545;
+        font-size: 1.313rem;
+    }
+
+    &__stream-game{
+        padding-bottom: 2px;
+
+        color: #454545;
+        font-size: 1.063rem;;
+    }
+
+    &__user{
+        color: #7A7A7A;
+        font-size: 0.938rem;
+    }
+}
+// .media {margin:10px;}
+// .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+// .media .img {float:left; margin-right: 10px;}
+// .media .img img{display:block;}
+// .media .imgExt{float:right; margin-left: 10px;}
