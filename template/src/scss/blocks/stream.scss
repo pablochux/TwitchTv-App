@@ -1,8 +1,11 @@
 .stream{
     padding: 10px;
 
-    &-list--offline{
-        display: none;
+    &--offline{
+        opacity: 0.8;
+    }
+    &--deleted{
+        opacity: 0.4;
     }
 }
 
@@ -23,24 +26,32 @@
 
     margin-left: 14px;
 
-    &__stream-title{
+    text-overflow: ellipsis;
+    width: calc(100% - 75px);
+    white-space: nowrap;
+    overflow: hidden;
+
+    // Online
+    &__header-1{
         padding-bottom: 3px;
 
         color: #454545;
         font-size: 1.313rem;
     }
 
-    &__stream-game{
+    &__header-2{
         padding-bottom: 2px;
 
         color: #454545;
         font-size: 1.063rem;;
     }
 
-    &__user{
+    &__header-3{
         color: #7A7A7A;
         font-size: 0.938rem;
     }
+    // Offline
+
 }
 // .media {margin:10px;}
 // .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}

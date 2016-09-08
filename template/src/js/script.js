@@ -1,6 +1,7 @@
 //------------------------------
 // Functions
 //------------------------------
+// Perform an Ajax to know if the FreeCodeCamp channel is streamiing
 function getFreeCodeCampStreams() {
     $.ajax({
         type: "GET",
@@ -9,16 +10,14 @@ function getFreeCodeCampStreams() {
         async: false,
         dataType: "json",
         success: function(data) {
-            console.log(data);
-            console.log('STATUS');
-            console.log(getFreeCodeCampStreamStatus(data));
+            getFreeCodeCampChannel();
         },
         error: function(data) {
             console.log(data);
         }
     });
 }
-
+// Return if the FreeCodeCamp channel is streaming or not
 function getFreeCodeCampStreamStatus(data) {
     return $.isEmptyObject(data.stream);
 }
@@ -32,6 +31,16 @@ function getFreeCodeCampChannel() {
         dataType: "json",
         success: function(data) {
             console.log(data);
+            var imageUrl = data.logo,
+                user = data.display_name,
+                followers = data.followers,
+                views = data.views;
+            if (getFreeCodeCampStreamStatus(data)) {
+                // displayStream(streamTitle, user, game, imageUrl, 1);
+                displayOfflineStream(imageUrl, user, followers, views, 0);
+            } else {
+                console.log('online');
+            }
         },
         error: function(data) {
             console.log(data);
@@ -48,6 +57,7 @@ function getFeaturedStreams() {
         async: false,
         dataType: "json",
         success: function(data) {
+            console.log('Featured Streams');
             console.log(data);
             getDataFeaturedStreams(data);
         },
@@ -68,27 +78,40 @@ function getDataFeaturedStreams(data) {
     for (var i = 0; i < data.featured.length; i++) {
         var user = data.featured[i].stream.channel.name,
             game = data.featured[i].stream.game,
-            viewers = data.featured[i].stream.viewers;
-        console.log(user + game + viewers);
-        displayStream(user, game, viewers);
+            streamTitle = data.featured[i].title,
+            imageUrl = data.featured[i].stream.channel.logo;
+        console.log(user + game);
+        displayStream(streamTitle, user, game, imageUrl, i);
     }
 }
 
 // Colateral effects: print strem in .streams
-function displayStream(streamTitle, user, game, imageUrl) {
-    $('.stream-list').append('<div class="stream"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__stream-title">' + streamTitle + '</p><p class="profile-info__stream-game">Game: ' + game + '</p><p class="profile-info__user">User: ' + user + '</p></div></div>');
+function displayStream(streamTitle, user, game, imageUrl, seconds) {
+    $('.stream-list--online').append('<div class="stream"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__header-1">' + streamTitle + '</p><p class="profile-info__header-2">Game: ' + game + '</p><p class="profile-info__header-3">User: ' + user + '</p></div></div>');
+}
+
+function displayOfflineStream(imageUrl, user, followers, views, seconds) {
+    $('.stream-list--offline').append('<div class="stream stream--offline"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__header-1">' + user + '</p><p class="profile-info__header-3">Followers: ' + followers + '</p><p class="profile-info__header-3">Views: ' + views + '</p></div></div>');
 }
 
 //------------------------------
 // Main script
 //------------------------------
 $(document).ready(function() {
-    // getFeaturedStreams();
+    getFeaturedStreams();
+
+    // Add FreeCodeCamp stream
+    console.log('FreeCodeCamp');
     getFreeCodeCampStreams();
-    getFreeCodeCampChannel();
+    // getFreeCodeCampChannel();
+
     $('.nav-tab__link').click(function() {
         $('.stream-list--online').toggle();
         $('.stream-list--offline').toggle();
         $('.nav-tab').toggleClass('nav-tab--active');
     });
+
+    setTimeout(function() {
+        $('.nav, .stream-list').removeClass('u-hide');
+    }, 1000);
 });

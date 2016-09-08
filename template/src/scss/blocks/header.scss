@@ -1,4 +1,6 @@
 .header{
+    animation: loadingAnimation 1s ease-in-out;
+
     &__image{
         display: block;
 

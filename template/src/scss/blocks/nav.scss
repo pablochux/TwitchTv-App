@@ -7,6 +7,8 @@
     height: 50px;
 
     margin-bottom: 10px;
+
+    animation: fadeInFromNone 1s ease-in-out;
 }
 
 ul{
@@ -22,11 +24,23 @@ ul{
 
     background-color: #CACACA;
 
+    transition: background-color 300ms ease-in-out;
+
+    @media screen and (min-width: 1025px) {
+        &:first-child{
+            border-radius: 5px 0 0 5px;
+        }
+        &:last-child{
+            border-radius: 0 5px 5px 0;
+        }
+    }
     // Modifiers
     &--active{
         background-color: #21D121;
     }
-
+    &:last-child.nav-tab--active{
+        background-color: #F76666;
+    }
     // Elements
     &__link{
         display: block;

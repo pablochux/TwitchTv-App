@@ -17,3 +17,13 @@
         opacity: 1;
     }
 }
+
+@keyframes loadingAnimation {
+    0%{
+        transform: translateY(200px) scale(4);
+    }
+
+    100%{
+        transform: translateY(0) scale(1);
+    }
+}
