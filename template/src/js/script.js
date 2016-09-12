@@ -33,11 +33,12 @@ function getFreeCodeCampChannel() {
             console.log(data);
             var imageUrl = data.logo,
                 user = data.display_name,
+                userUrl = data.url,
                 followers = data.followers,
                 views = data.views;
             if (getFreeCodeCampStreamStatus(data)) {
                 // displayStream(streamTitle, user, game, imageUrl, 1);
-                displayOfflineStream(imageUrl, user, followers, views, 0);
+                displayOfflineStream(imageUrl, user, userUrl, followers, views);
             } else {
                 console.log('online');
             }
@@ -79,19 +80,20 @@ function getDataFeaturedStreams(data) {
         var user = data.featured[i].stream.channel.name,
             game = data.featured[i].stream.game,
             streamTitle = data.featured[i].title,
+            streamUrl = data.featured[i].stream.channel.url,
             imageUrl = data.featured[i].stream.channel.logo;
         console.log(user + game);
-        displayStream(streamTitle, user, game, imageUrl, i);
+        displayStream(streamTitle, streamUrl, user, game, imageUrl);
     }
 }
 
 // Colateral effects: print strem in .streams
-function displayStream(streamTitle, user, game, imageUrl, seconds) {
-    $('.stream-list--online').append('<div class="stream"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__header-1">' + streamTitle + '</p><p class="profile-info__header-2">Game: ' + game + '</p><p class="profile-info__header-3">User: ' + user + '</p></div></div>');
+function displayStream(streamTitle, streamUrl, user, game, imageUrl) {
+    $('.stream-list--online').append('<div class="stream"><a href="' + streamUrl + '"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__header-1">' + streamTitle + '</p><p class="profile-info__header-2">Game: ' + game + '</p><p class="profile-info__header-3">User: ' + user + '</p></div></a></div>');
 }
 
-function displayOfflineStream(imageUrl, user, followers, views, seconds) {
-    $('.stream-list--offline').append('<div class="stream stream--offline"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__header-1">' + user + '</p><p class="profile-info__header-3">Followers: ' + followers + '</p><p class="profile-info__header-3">Views: ' + views + '</p></div></div>');
+function displayOfflineStream(imageUrl, user, userUrl, followers, views) {
+    $('.stream-list--offline').append('<div class="stream stream--offline"><a href="' + userUrl + '"><div class="profile-image"><img src="' + imageUrl + '" alt=""></div><div class="profile-info"><p class="profile-info__header-1">' + user + '</p><p class="profile-info__header-3">Followers: ' + followers + '</p><p class="profile-info__header-3">Views: ' + views + '</p></div></a></div>');
 }
 
 //------------------------------
